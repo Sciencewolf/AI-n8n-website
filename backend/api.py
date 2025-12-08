@@ -1,11 +1,16 @@
-from flask import Flask, jsonify, request, render_template
+from flask import Flask, request
 
 app = Flask(__name__)
+
+@app.route('/')
+def index():
+    return 'Hello World'
 
 @app.route('/create', methods=['POST'])
 def create():
     if request.method == 'POST':
-        pass
+        get_body = request.get_json()
+        print(get_body)
 
 @app.route('/delete/<id>', methods=['DELETE'])
 def delete(id):
@@ -26,3 +31,6 @@ def get(id):
 def get_all():
     if request.method == 'GET':
         pass
+
+if __name__ == '__main__':
+    app.run(debug=True, host='0.0.0.0', port=9999)

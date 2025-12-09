@@ -1,6 +1,8 @@
 from flask import Flask, request
+import json
 
 app = Flask(__name__)
+app.config['stories_dir'] = '/home/aron/AI-n8n-website/backend/stories'
 
 @app.route('/')
 def index():
@@ -9,8 +11,13 @@ def index():
 @app.route('/create', methods=['POST'])
 def create():
     if request.method == 'POST':
-        get_body = request.get_json()
-        print(get_body)
+        get_body = request.json
+        title = str(get_body['title']).replace(' ', '_')
+
+        with open(f"{app.config['stories_dir']}/{title}.json", 'w') as file:
+            json.dump(get_body, file)
+
+        return f"'{title}' added.", 200
 
 @app.route('/delete/<id>', methods=['DELETE'])
 def delete(id):

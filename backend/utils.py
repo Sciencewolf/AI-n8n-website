@@ -20,8 +20,3 @@ def create_html(json_story_path: str) -> None:
     with open(f"backend/templates/{str(story['title']).replace(' ', '_')}.html", 'a+') as html_story_out:
         for line in html_code:
             html_story_out.write(line)
-
-
-
-if __name__ == '__main__':
-    create_html("backend/stories/Echoes_Beneath_the_Salt_House.json")

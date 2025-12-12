@@ -1,8 +1,8 @@
 from flask import Flask, request, jsonify
 import json
 import os
-from pathlib import Path
-from utils import create_html
+
+# todo: migration to supabase
 
 app = Flask(__name__)
 app.config['stories_dir'] = '/home/aron/AI-n8n-website/backend/stories'
@@ -37,12 +37,9 @@ def create():
         with open(ids_path, 'w') as file:
             json.dump(story_ids, file, indent=4)
 
-        create_html(story_path)
-
         return jsonify({'info': f"'{title}' added."}), 200
     
     return None
-
 
 
 @app.route('/get', methods=['GET'])
